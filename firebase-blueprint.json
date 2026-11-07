@@ -1,0 +1,171 @@
+{
+  "entities": {
+    "CashTransaction": {
+      "title": "CashTransaction",
+      "description": "Transaksi penjualan tunai / cash dengan nota Toko Almaira",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "noNota": { "type": "string" },
+        "namaPelanggan": { "type": "string" },
+        "telepon": { "type": "string" },
+        "items": { "type": "array" },
+        "total": { "type": "number" },
+        "uangDiterima": { "type": "number" },
+        "kembalian": { "type": "number" },
+        "statusBayar": { "type": "string" },
+        "tanggalLunas": { "type": "string" },
+        "waktuLunas": { "type": "string" },
+        "catatanPelunasan": { "type": "string" },
+        "keterangan": { "type": "string" },
+        "tanggal": { "type": "string" },
+        "waktu": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "noNota", "namaPelanggan", "total", "tanggal"]
+    },
+    "PiutangItem": {
+      "title": "PiutangItem",
+      "description": "Catatan piutang pelanggan Toko Almaira",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "keterangan": { "type": "string" },
+        "nominal": { "type": "number" },
+        "tanggal": { "type": "string" },
+        "status": { "type": "string" },
+        "telepon": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "nama", "nominal", "tanggal", "status"]
+    },
+    "TitipanItem": {
+      "title": "TitipanItem",
+      "description": "Catatan titipan uang",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "keterangan": { "type": "string" },
+        "nominal": { "type": "number" },
+        "tanggal": { "type": "string" },
+        "status": { "type": "string" },
+        "telepon": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "nama", "nominal", "tanggal", "status"]
+    },
+    "PaymentRecord": {
+      "title": "PaymentRecord",
+      "description": "Riwayat pembayaran piutang atau titipan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nama": { "type": "string" },
+        "nominal": { "type": "number" },
+        "keterangan": { "type": "string" },
+        "tanggal": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "nama", "nominal", "tanggal"]
+    },
+    "DailyRecap": {
+      "title": "DailyRecap",
+      "description": "Rekapitulasi keuangan harian dan bulanan",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "tanggal": { "type": "string" },
+        "modalAwal": { "type": "number" },
+        "kas": { "type": "object" },
+        "totalKasMurni": { "type": "number" },
+        "piutangTotal": { "type": "number" },
+        "titipanTotal": { "type": "number" },
+        "totalKasHarian": { "type": "number" },
+        "totalKasKemarin": { "type": "number" },
+        "labaHarian": { "type": "number" },
+        "labaBulanan": { "type": "number" },
+        "catatan": { "type": "string" },
+        "savedAt": { "type": "string" }
+      },
+      "required": ["id", "tanggal", "totalKasHarian", "savedAt"]
+    },
+    "KasDraft": {
+      "title": "KasDraft",
+      "description": "Draft saldo kas akun aktif",
+      "type": "object",
+      "properties": {
+        "bri": { "type": "number" },
+        "bni": { "type": "number" },
+        "flip": { "type": "number" },
+        "dana": { "type": "number" },
+        "od": { "type": "number" },
+        "edc": { "type": "number" },
+        "cash": { "type": "number" }
+      }
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "Pengaturan toko dan modal awal",
+      "type": "object",
+      "properties": {
+        "modalAwal": { "type": "number" },
+        "updatedAt": { "type": "number" }
+      }
+    },
+    "AppBackup": {
+      "title": "AppBackup",
+      "description": "Snapshot cadangan data toko untuk pemulihan jika terjadi kesalahan input",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "reason": { "type": "string" },
+        "summary": { "type": "object" },
+        "data": { "type": "object" }
+      },
+      "required": ["id", "timestamp", "data"]
+    }
+  },
+  "firestore": {
+    "/cashTransactions/{transactionId}": {
+      "schema": "CashTransaction",
+      "description": "Daftar nota transaksi kas toko Almaira"
+    },
+    "/piutang/{piutangId}": {
+      "schema": "PiutangItem",
+      "description": "Daftar data piutang pelanggan"
+    },
+    "/piutangPayments/{paymentId}": {
+      "schema": "PaymentRecord",
+      "description": "Riwayat pembayaran cicilan / pelunasan piutang"
+    },
+    "/titipan/{titipanId}": {
+      "schema": "TitipanItem",
+      "description": "Daftar titipan uang"
+    },
+    "/titipanPayments/{paymentId}": {
+      "schema": "PaymentRecord",
+      "description": "Riwayat pembayaran / penarikan titipan"
+    },
+    "/rekap/{rekapId}": {
+      "schema": "DailyRecap",
+      "description": "Arsip rekapitulasi harian"
+    },
+    "/settings/{settingId}": {
+      "schema": "Settings",
+      "description": "Pengaturan toko dan modal awal"
+    },
+    "/kas/{docId}": {
+      "schema": "KasDraft",
+      "description": "Draft saldo akun kas"
+    },
+    "/backups/{backupId}": {
+      "schema": "AppBackup",
+      "description": "Arsip backup dan titik pemulihan data toko"
+    }
+  }
+}

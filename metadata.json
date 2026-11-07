@@ -1,0 +1,6 @@
+{
+  "name": "E-Jurnal Toko Alma",
+  "description": "Aplikasi pencatatan jurnal harian kas, piutang, titipan, rekap bulanan, serta transaksi pembayaran cash lengkap dengan nota kasir Toko Alma.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
